@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Roadmap — AI-Native LMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f2eb;
+    --paper2: #edeae0;
+    --accent: #c8401a;
+    --accent2: #1a6bc8;
+    --accent3: #2a8a4a;
+    --accent4: #8a2a8a;
+    --accent5: #c8a01a;
+    --muted: #6b6860;
+    --border: rgba(10,10,15,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.5;
+  }
+
+  /* HEADER */
+  header {
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    right: -100px;
+    top: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(200,64,26,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .header-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.95;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .header-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-meta {
+    text-align: right;
+  }
+
+  .header-meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .header-meta-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+    font-style: italic;
+  }
+
+  /* NORTH STAR */
+  .north-star {
+    margin: 60px 60px 0;
+    padding: 48px;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .north-star::before {
+    content: '★';
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 180px;
+    opacity: 0.04;
+    line-height: 1;
+  }
+
+  .north-star-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,242,235,0.4);
+    margin-bottom: 20px;
+  }
+
+  .north-star-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(22px, 3vw, 36px);
+    line-height: 1.3;
+    max-width: 800px;
+    font-weight: 400;
+  }
+
+  .north-star-text em {
+    font-style: italic;
+    color: #f0a080;
+  }
+
+  /* PRINCIPLES BAR */
+  .principles {
+    margin: 0 60px;
+    border: 1px solid var(--border);
+    border-top: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .principle {
+    padding: 24px 28px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .principle:last-child { border-right: none; }
+
+  .principle-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .principle-text {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .principle-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    margin: 80px 60px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .section-label-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-label-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PHASES GRID */
+  .phases {
+    padding: 0 60px;
+    display: grid;
+    gap: 24px;
+  }
+
+  /* PHASE CARD */
+  .phase {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .phase.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .phase-left {
+    padding: 40px 36px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .phase-accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+  }
+
+  .phase-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .phase-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .phase-timeline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--paper2);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .phase-timeline-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .phase-timeline-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  .phase-goal-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .phase-goal {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .phase-exit {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .phase-exit-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .phase-exit-text {
+    font-size: 12px;
+    line-height: 1.5;
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+    font-size: 15px;
+  }
+
+  .phase-right {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-content: start;
+  }
+
+  .feature-group { }
+
+  .feature-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feature-list {
+    list-style: none;
+  }
+
+  .feature-list li {
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 4px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #2a2a30;
+    font-weight: 400;
+  }
+
+  .feature-list li::before {
+    content: '—';
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .feature-list li.ai-feature {
+    font-weight: 500;
+  }
+
+  .feature-list li.ai-feature::before {
+    content: '✦';
+    font-size: 9px;
+    color: var(--accent);
+    margin-top: 3px;
+  }
+
+  .phase-metric {
+    grid-column: 1 / -1;
+    padding: 20px 24px;
+    background: var(--paper2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .metric-item {
+    text-align: center;
+  }
+
+  .metric-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .metric-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+  }
+
+  /* PHASE COLOR THEMES */
+  .phase-1 .phase-accent-bar { background: var(--accent); }
+  .phase-1 .phase-timeline-dot { background: var(--accent); }
+  .phase-1 .phase-timeline-text { color: var(--accent); }
+
+  .phase-2 .phase-accent-bar { background: var(--accent2); }
+  .phase-2 .phase-timeline-dot { background: var(--accent2); }
+  .phase-2 .phase-timeline-text { color: var(--accent2); }
+
+  .phase-3 .phase-accent-bar { background: var(--accent3); }
+  .phase-3 .phase-timeline-dot { background: var(--accent3); }
+  .phase-3 .phase-timeline-text { color: var(--accent3); }
+
+  .phase-4 .phase-accent-bar { background: var(--accent4); }
+  .phase-4 .phase-timeline-dot { background: var(--accent4); }
+  .phase-4 .phase-timeline-text { color: var(--accent4); }
+
+  .phase-5 .phase-accent-bar { background: var(--accent5); }
+  .phase-5 .phase-timeline-dot { background: var(--accent5); }
+  .phase-5 .phase-timeline-text { color: var(--accent5); }
+
+  /* VISION SECTION */
+  .vision-section {
+    margin: 80px 60px 0;
+  }
+
+  .vision-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+  }
+
+  .vision-card {
+    padding: 36px 32px;
+    border-right: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vision-card:last-child { border-right: none; }
+
+  .vision-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+    line-height: 1;
+  }
+
+  .vision-card-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .vision-card-text {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* CONSTANTS */
+  .constants-section {
+    margin: 60px 60px 0;
+    padding: 48px;
+    border: 1px solid var(--border);
+    background: var(--paper2);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .constants-label {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    font-style: italic;
+    line-height: 1.2;
+  }
+
+  .constants-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .constant-item { }
+
+  .constant-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .constant-title::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .constant-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* FOOTER */
+  footer {
+    margin: 60px 60px 0;
+    padding: 32px 0 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-right {
+    font-family: 'Instrument Serif', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* TIMELINE CONNECTOR */
+  .timeline-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 0;
+    color: var(--muted);
+  }
+
+  .timeline-connector-inner {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    opacity: 0.3;
+  }
+
+  /* TAG */
+  .tag {
+    display: inline-flex;
+    padding: 3px 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    background: var(--paper);
+    color: var(--muted);
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+
+  .tag.selling { border-color: var(--accent3); color: var(--accent3); background: rgba(42,138,74,0.06); }
+  .tag.scale { border-color: var(--accent4); color: var(--accent4); background: rgba(138,42,138,0.06); }
+
+  /* ARR BANNER */
+  .arr-banner {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    display: inline-block;
+  }
+
+  @media print {
+    body { background: white; }
+    .phase { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-eyebrow">AI-Native LMS · Indonesia · 2026</div>
+    <h1 class="header-title">Product<br><em>Roadmap</em></h1>
+  </div>
+  <div class="header-meta">
+    <div class="header-meta-label">Vision</div>
+    <div class="header-meta-value">School operating system<br>for every Indonesian class</div>
+    <div style="margin-top: 20px;">
+      <div class="header-meta-label">Market</div>
+      <div style="font-family:'DM Mono',monospace; font-size:13px;">250,000 schools · 3M+ teachers</div>
+    </div>
+  </div>
+</header>
+
+<div class="north-star">
+  <div class="north-star-label">North Star</div>
+  <div class="north-star-text">
+    A teacher in Indonesia spends <em>less time on admin</em> than any of their peers.<br>
+    A principal sees their school clearly, for the first time. A student never gets <em>surprised by a grade</em>.
+  </div>
+</div>
+
+<div class="principles">
+  <div class="principle">
+    <div class="principle-number">01</div>
+    <div class="principle-text">AI absorbs creation</div>
+    <div class="principle-sub">Humans do the judgment</div>
+  </div>
+  <div class="principle">
+    <div class="principle-number">02</div>
+    <div class="principle-text">Invisible infrastructure</div>
+    <div class="principle-sub">Software that disappears</div>
+  </div>
+  <div class="principle">
+    <div class="principle-number">03</div>
+    <div class="principle-text">Mobile first, always</div>
+    <div class="principle-sub">Mid-range Android, 4G</div>
+  </div>
+  <div class="principle">
+    <div class="principle-number">04</div>
+    <div class="principle-text">Bahasa is native</div>
+    <div class="principle-sub">Not a translation layer</div>
+  </div>
+  <div class="principle">
+    <div class="principle-number">05</div>
+    <div class="principle-text">Teachers distribute</div>
+    <div class="principle-sub">Relationships, not ads</div>
+  </div>
+</div>
+
+<div class="section-label">
+  <span class="section-label-text">Phases</span>
+  <div class="section-label-line"></div>
+  <span class="section-label-text">From zero to distribution</span>
+</div>
+
+<div class="phases">
+
+  <!-- PHASE 1 -->
+  <div class="phase phase-1" id="phase1">
+    <div class="phase-left">
+      <div class="phase-accent-bar"></div>
+      <div>
+        <div class="phase-number">Phase 01</div>
+        <div class="phase-name">Pilot<br>MVP</div>
+        <div class="phase-timeline">
+          <div class="phase-timeline-dot"></div>
+          <div class="phase-timeline-text">Ship in 7 days</div>
+        </div>
+        <div class="phase-goal-label">Real goal</div>
+        <div class="phase-goal">A teacher uses it to run a real class on Monday morning and comes back Tuesday without being asked.</div>
+      </div>
+      <div class="phase-exit">
+        <div class="phase-exit-label">Exit condition</div>
+        <div class="phase-exit-text">Three real teachers complete the full flow — signup to attendance — without any guidance from us.</div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="feature-group">
+        <div class="feature-group-title">Core LMS</div>
+        <ul class="feature-list">
+          <li>Google sign-in, zero form</li>
+          <li>School search (NPSN database)</li>
+          <li>Batch class creation</li>
+          <li>Student join via WhatsApp link</li>
+          <li>Materi — file, link, note</li>
+          <li>Tugas — create, submit, grade</li>
+          <li>Photo submission support</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">AI Features ✦</div>
+        <ul class="feature-list">
+          <li class="ai-feature">Lesson plan generation (RPP)</li>
+          <li class="ai-feature">Quiz generation + taking</li>
+          <li>Streaming responses</li>
+          <li>Structural validation</li>
+          <li>Topic suggestion chips</li>
+          <li>10 gen/teacher/month quota</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Absensi</div>
+        <ul class="feature-list">
+          <li>Tap-exception pattern</li>
+          <li>Swipe shortcuts</li>
+          <li>Under 30s for 35 students</li>
+          <li>Attendance history calendar</li>
+          <li>Per-student %-flagging</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Quiz Taking</div>
+        <ul class="feature-list">
+          <li>One question per screen</li>
+          <li>Answer persistence</li>
+          <li>Tab switch detection</li>
+          <li>Results per student + per question</li>
+          <li>Ingatkan siswa template</li>
+          <li>Excel export</li>
+        </ul>
+      </div>
+      <div class="phase-metric">
+        <div class="metric-item">
+          <div class="metric-value">0</div>
+          <div class="metric-label">Revenue</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">10</div>
+          <div class="metric-label">Target teachers</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">D+1</div>
+          <div class="metric-label">Retention signal</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">No</div>
+          <div class="metric-label">Payments</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-connector"><div class="timeline-connector-inner">↓</div></div>
+
+  <!-- PHASE 2 -->
+  <div class="phase phase-2" id="phase2">
+    <div class="phase-left">
+      <div class="phase-accent-bar"></div>
+      <div>
+        <div class="phase-number">Phase 02</div>
+        <div class="phase-name">School<br>Readiness</div>
+        <div class="phase-timeline">
+          <div class="phase-timeline-dot"></div>
+          <div class="phase-timeline-text">4 – 8 weeks post P1</div>
+        </div>
+        <div class="phase-goal-label">Real goal</div>
+        <div class="phase-goal">A principal can see their school's data, experience the admin layer on a trial, and have a reason to pay.</div>
+      </div>
+      <div class="phase-exit">
+        <div class="phase-exit-label">Exit condition</div>
+        <div class="phase-exit-text">You walk into a school, show existing usage data, and leave with a verbal commitment to purchase.</div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="feature-group">
+        <div class="feature-group-title">Multi-teacher</div>
+        <ul class="feature-list">
+          <li>Teacher invite via link</li>
+          <li>Correct tenant routing</li>
+          <li>Teacher roster per school</li>
+          <li>3-teacher nudge to principal</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Principal Layer <span class="tag selling">Trial gated</span></div>
+        <ul class="feature-list">
+          <li>School-wide dashboard</li>
+          <li>Cross-class attendance</li>
+          <li>Teacher activity stats</li>
+          <li>Student risk flags</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">AI Features ✦ <span class="tag selling">Trial gated</span></div>
+        <ul class="feature-list">
+          <li class="ai-feature">Rapor comment generation</li>
+          <li class="ai-feature">Assignment description assist</li>
+          <li>Grade book (Kurikulum Merdeka)</li>
+          <li>Competency-based scoring</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Ops Infrastructure</div>
+        <ul class="feature-list">
+          <li>School state machine live</li>
+          <li>Trial pro state (manual flip)</li>
+          <li>Internal admin panel</li>
+          <li>Sales pipeline view</li>
+          <li>School deduplication / merge</li>
+        </ul>
+      </div>
+      <div class="phase-metric">
+        <div class="metric-item">
+          <div class="metric-value">0</div>
+          <div class="metric-label">Revenue</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">3+</div>
+          <div class="metric-label">Teachers / school</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">Trial</div>
+          <div class="metric-label">Principal access</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">1</div>
+          <div class="metric-label">Verbal commit target</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-connector"><div class="timeline-connector-inner">↓</div></div>
+
+  <!-- PHASE 3 -->
+  <div class="phase phase-3" id="phase3">
+    <div class="phase-left">
+      <div class="phase-accent-bar"></div>
+      <div>
+        <div class="phase-number">Phase 03</div>
+        <div class="phase-name">First<br>Sale</div>
+        <div class="phase-timeline">
+          <div class="phase-timeline-dot"></div>
+          <div class="phase-timeline-text">On verbal commit</div>
+        </div>
+        <div class="phase-goal-label">Real goal</div>
+        <div class="phase-goal">Prove conversion. A teacher-seeded school pays an annual contract. Understand what makes them pay and what makes them hesitate.</div>
+      </div>
+      <div class="phase-exit">
+        <div class="phase-exit-label">Exit condition</div>
+        <div class="phase-exit-text">5 schools have paid. 3 have renewed or are clearly on track. 2 video testimonials from principals in hand.</div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="feature-group">
+        <div class="feature-group-title">Payment (Manual-first)</div>
+        <ul class="feature-list">
+          <li>PDF invoice generation</li>
+          <li>Bank transfer instructions</li>
+          <li>Manual confirmation → state flip</li>
+          <li>Surat Perjanjian Kerjasama template</li>
+          <li>Founder pricing (40–50% off)</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Paying Tier Unlocks</div>
+        <ul class="feature-list">
+          <li>Unlimited AI generations</li>
+          <li>Permanent principal dashboard</li>
+          <li>Permanent rapor generation</li>
+          <li>Priority support from team</li>
+          <li>Pro badge in product UI</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Renewal Infrastructure</div>
+        <ul class="feature-list">
+          <li>paid_until field on school</li>
+          <li>30 / 15 / 7 day reminders</li>
+          <li>7-day grace period</li>
+          <li>Lapsed state (free tier retained)</li>
+          <li>Data never deleted on lapse</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Onboarding</div>
+        <ul class="feature-list">
+          <li>Founder-led onboarding × 5</li>
+          <li>In-product checklist</li>
+          <li>Video testimonial capture</li>
+          <li>Reference customer agreement</li>
+        </ul>
+      </div>
+      <div class="phase-metric">
+        <div class="metric-item">
+          <div class="metric-value">Rp 80M</div>
+          <div class="metric-label">Target ARR / school</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">5</div>
+          <div class="metric-label">Paying schools</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">Annual</div>
+          <div class="metric-label">Contract type</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">Manual</div>
+          <div class="metric-label">Billing flow</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-connector"><div class="timeline-connector-inner">↓</div></div>
+
+  <!-- PHASE 4 -->
+  <div class="phase phase-4" id="phase4">
+    <div class="phase-left">
+      <div class="phase-accent-bar"></div>
+      <div>
+        <div class="phase-number">Phase 04</div>
+        <div class="phase-name">Repeatable<br>Sales</div>
+        <div class="phase-timeline">
+          <div class="phase-timeline-dot"></div>
+          <div class="phase-timeline-text">5 → 50 schools</div>
+        </div>
+        <div class="phase-goal-label">Real goal</div>
+        <div class="phase-goal">The GTM motion works without the founding team personally selling every deal. The flywheel turns on its own.</div>
+      </div>
+      <div class="phase-exit">
+        <div class="phase-exit-label">Exit condition</div>
+        <div class="phase-exit-text">A school converts from free to paid without the founding team being involved at any point in the journey.</div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="feature-group">
+        <div class="feature-group-title">Self-serve Upgrade</div>
+        <ul class="feature-list">
+          <li>Principal upgrade flow in-product</li>
+          <li>Automated invoice generation</li>
+          <li>Midtrans / Xendit virtual account</li>
+          <li>Payment webhook → state flip</li>
+          <li>Automated renewal reminders</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Product Expansion ✦</div>
+        <ul class="feature-list">
+          <li class="ai-feature">P5 project plan generation</li>
+          <li class="ai-feature">Dimensi-based assessment AI</li>
+          <li class="ai-feature">P5 rapor comment generation</li>
+          <li>Parent portal (WhatsApp-native)</li>
+          <li>Weekly parent digest</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Distribution</div>
+        <ul class="feature-list">
+          <li>Teacher referral mechanic</li>
+          <li>WhatsApp outreach templates</li>
+          <li>Referral attribution tracking</li>
+          <li>Content library (lesson plans)</li>
+          <li>YouTube / TikTok content seeding</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Scale Infra</div>
+        <ul class="feature-list">
+          <li>Self-serve onboarding checklist</li>
+          <li>In-product video walkthroughs</li>
+          <li>Tinybird event analytics</li>
+          <li>LLM-as-judge eval pipeline</li>
+          <li>Weekly drift detection job</li>
+        </ul>
+      </div>
+      <div class="phase-metric">
+        <div class="metric-item">
+          <div class="metric-value">Rp 1B+</div>
+          <div class="metric-label">Target ARR</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">50</div>
+          <div class="metric-label">Paying schools</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">0-touch</div>
+          <div class="metric-label">Conversion goal</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">Auto</div>
+          <div class="metric-label">Billing flow</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-connector"><div class="timeline-connector-inner">↓</div></div>
+
+  <!-- PHASE 5 -->
+  <div class="phase phase-5" id="phase5">
+    <div class="phase-left">
+      <div class="phase-accent-bar"></div>
+      <div>
+        <div class="phase-number">Phase 05</div>
+        <div class="phase-name">Scale &<br>Distribution</div>
+        <div class="phase-timeline">
+          <div class="phase-timeline-dot"></div>
+          <div class="phase-timeline-text">50 → 500+ schools</div>
+        </div>
+        <div class="phase-goal-label">Real goal</div>
+        <div class="phase-goal">Distribution becomes the product. Teacher network effects drive acquisition faster than any sales motion.</div>
+      </div>
+      <div class="phase-exit">
+        <div class="phase-exit-label">Exit condition</div>
+        <div class="phase-exit-text">New school acquisition is predominantly inbound. CAC is declining. NRR is above 110%.</div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="feature-group">
+        <div class="feature-group-title">Foundation Licensing <span class="tag scale">Scale</span></div>
+        <ul class="feature-list">
+          <li>Yayasan multi-school contracts</li>
+          <li>Group pricing (50–60% / school)</li>
+          <li>Muhammadiyah / NU targeting</li>
+          <li>Top-down rollout support</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Government & Infra <span class="tag scale">Scale</span></div>
+        <ul class="feature-list">
+          <li>Dapodik API integration (MoU)</li>
+          <li>BOS vendor list eligibility</li>
+          <li>SIS API for large schools</li>
+          <li>Data export for Dinas</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Advanced AI ✦</div>
+        <ul class="feature-list">
+          <li class="ai-feature">Predictive student risk flags</li>
+          <li class="ai-feature">School benchmarking (anon)</li>
+          <li class="ai-feature">Intervention suggestions</li>
+          <li>Cross-school content quality</li>
+        </ul>
+      </div>
+      <div class="feature-group">
+        <div class="feature-group-title">Community</div>
+        <ul class="feature-list">
+          <li>Teacher community (WA/Forum)</li>
+          <li>Annual educator event</li>
+          <li>Curriculum update content</li>
+          <li>MGMP chapter partnerships</li>
+          <li>Product as identity for teachers</li>
+        </ul>
+      </div>
+      <div class="phase-metric">
+        <div class="metric-item">
+          <div class="metric-value">Rp 10B+</div>
+          <div class="metric-label">Target ARR</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">500+</div>
+          <div class="metric-label">Paying schools</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">110%+</div>
+          <div class="metric-label">Net revenue retention</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <div class="metric-value">Inbound</div>
+          <div class="metric-label">Primary acquisition</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- COMPLETE VISION -->
+<div class="section-label" style="margin-top: 80px;">
+  <span class="section-label-text">Complete Vision</span>
+  <div class="section-label-line"></div>
+  <span class="section-label-text">When the product is done</span>
+</div>
+
+<div class="vision-section" style="margin-top: 0;">
+  <div class="vision-grid">
+    <div class="vision-card">
+      <span class="vision-icon">👩‍🏫</span>
+      <div class="vision-card-title">The Teacher</div>
+      <div class="vision-card-text">Spends less time on admin than any peer. Lesson plans, quizzes, and rapor comments take minutes. Their job is teaching, relationships, and judgment — not paperwork.</div>
+    </div>
+    <div class="vision-card">
+      <span class="vision-icon">🏫</span>
+      <div class="vision-card-title">The Principal</div>
+      <div class="vision-card-text">Sees every classroom in real time — attendance, grades, risk flags, teacher activity — without asking anyone for a report. Decisions are data-backed, not intuition-based.</div>
+    </div>
+    <div class="vision-card">
+      <span class="vision-icon">📱</span>
+      <div class="vision-card-title">The Student & Parent</div>
+      <div class="vision-card-text">Always know where they stand. Not twice a year through a paper rapor — continuously, via WhatsApp. No student is ever surprised by a grade at semester end.</div>
+    </div>
+    <div class="vision-card">
+      <span class="vision-icon">🏛️</span>
+      <div class="vision-card-title">The Yayasan</div>
+      <div class="vision-card-text">Compares performance across all affiliated schools. Identifies which schools need intervention. Sees the return on their investment in concrete academic outcome trends.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONSTANTS -->
+<div class="constants-section">
+  <div class="constants-label">What never<br>changes</div>
+  <div class="constants-grid">
+    <div class="constant-item">
+      <div class="constant-title">Bahasa Indonesia is first-class</div>
+      <div class="constant-text">Every phase, every feature, every AI output — written, reviewed, and refined in Indonesian. Never shipped before a native speaker has checked it.</div>
+    </div>
+    <div class="constant-item">
+      <div class="constant-title">Mobile is the primary platform</div>
+      <div class="constant-text">Every feature designed for one thumb on a mid-range Android before it exists on desktop. Always tested on a Galaxy A-series.</div>
+    </div>
+    <div class="constant-item">
+      <div class="constant-title">AI creates, teachers decide</div>
+      <div class="constant-text">AI suggestions are always visible and reviewable before being applied. We never auto-fill a field the teacher didn't ask to fill.</div>
+    </div>
+    <div class="constant-item">
+      <div class="constant-title">Free tier is permanent</div>
+      <div class="constant-text">Individual teachers always have access to a genuinely useful free product. The distribution engine never gets turned off.</div>
+    </div>
+    <div class="constant-item">
+      <div class="constant-title">Tenant isolation is sacred</div>
+      <div class="constant-text">No school ever sees another school's data — not by accident, not through a URL, not through our own tooling. Enforced at the database layer first.</div>
+    </div>
+    <div class="constant-item">
+      <div class="constant-title">No empty states, ever</div>
+      <div class="constant-text">Every screen a new user sees contains something — suggestions, examples, pre-written templates. The product feels alive from the moment of signup.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">AI-Native LMS · Product Roadmap · 2026</div>
+  <div class="footer-right">✦ AI feature &nbsp;&nbsp; — Standard feature</div>
+</footer>
+
+<script>
+  // Staggered scroll reveal
+  const phases = document.querySelectorAll('.phase');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  
+  phases.forEach(phase => observer.observe(phase));
+
+  // Immediate visibility for phases already in viewport
+  setTimeout(() => {
+    phases.forEach(phase => {
+      const rect = phase.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        phase.classList.add('visible');
+      }
+    });
+  }, 100);
+</script>
+
+</body>
+</html>
